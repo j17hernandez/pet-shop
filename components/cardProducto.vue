@@ -56,7 +56,7 @@
               block
               color="primary darken-3"
               :disabled="validationAddcart"
-              @click="addCart(item)"
+              @click="openModalDetail(item)"
             >
               <v-icon>mdi-cart-plus</v-icon>
             </v-btn>
@@ -64,12 +64,25 @@
         </v-row>
       </v-card-actions>
     </v-card>
+    <v-layout row justify-center>
+      <v-dialog v-model="modalDetail" persistent max-width="800px">
+        <ModalDetail
+          :item="itemSelected"
+          @close="closeModal"
+          @addCarrito="addCart"
+        ></ModalDetail>
+      </v-dialog>
+    </v-layout>
   </v-container>
 </template>
 <script>
 import { mapActions } from 'vuex'
+import ModalDetail from '@/components/modalDetail.vue'
 export default {
   name: 'CardComponent',
+  components: {
+    ModalDetail,
+  },
   props: {
     item: {
       type: Object,
@@ -93,6 +106,8 @@ export default {
       cantidad: 0,
       titleStock: '',
       stockClass: '',
+      itemSelected: {},
+      modalDetail: false,
     }
   },
   computed: {
@@ -125,8 +140,17 @@ export default {
     },
     // Función para agregar productos al carrito de compras
     addCart(item) {
+      //   const i = { ...item, cantidad: this.cantidad }
+      this.addItem(item)
+    },
+    openModalDetail(item) {
       const i = { ...item, cantidad: this.cantidad }
-      this.addItem(i)
+      this.addCart(i)
+      this.itemSelected = i
+      this.modalDetail = true
+    },
+    closeModal() {
+      this.modalDetail = false
     },
   },
 }
