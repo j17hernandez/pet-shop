@@ -21,7 +21,8 @@
           <v-col> Sub-total: {{ getSubtotal(item.subtotal) }} </v-col>
         </v-row>
       </v-col>
-      <span>Total: {{ formatter.format(getTotal) }}</span>
+      <span v-if="getItems.length === 0"> No hay productos en el carrito </span>
+      <span v-else>Total: {{ formatter.format(getTotal) }}</span>
     </v-row>
   </v-container>
 </template>

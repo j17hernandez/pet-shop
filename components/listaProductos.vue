@@ -4,7 +4,7 @@
     <h2>
       {{ category !== null && category !== undefined ? category.name : '' }}
     </h2>
-    <v-row v-if="getSearch.length === 0">
+    <v-row v-if="getProductos.length !== 0 && getSearch.length === 0">
       <v-col
         v-for="item in getProductos"
         :key="item.name"
@@ -14,9 +14,6 @@
         lg="4"
       >
         <CardComponent :item="item" />
-      </v-col>
-      <v-col v-if="getProductos.length == 0" cols="12" sm="12" md="12">
-        <v-img :src="require('assets/img/emptyList.png')"></v-img>
       </v-col>
     </v-row>
     <v-row>
@@ -33,6 +30,15 @@
         </div>
       </v-col>
     </v-row>
+    <v-col
+      v-if="getProductos.length == 0"
+      class="mt-1"
+      cols="12"
+      sm="12"
+      md="12"
+    >
+      <v-img :src="require('assets/img/emptyList.png')"></v-img>
+    </v-col>
   </v-container>
 </template>
 <script>
@@ -70,9 +76,14 @@ export default {
     // Función computada para obtener los resultados de la busqueda
     getSearch() {
       let products = []
-      products = this.products.filter((item) =>
-        item.name.toLowerCase().includes(this.$store.state.search)
-      )
+      if (
+        this.$store.state.search !== null &&
+        this.$store.state.search.length > 0
+      ) {
+        products = this.products.filter((item) =>
+          item.name.toLowerCase().includes(this.$store.state.search)
+        )
+      }
       return products
     },
   },
