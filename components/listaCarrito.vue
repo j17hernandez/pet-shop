@@ -1,6 +1,9 @@
 <template>
   <v-container>
     <v-row class="text-left">
+      <v-col cols="12">
+        <h2>Resumen de compra</h2>
+      </v-col>
       <v-col v-for="(item, i) in getItems" :key="i" cols="12">
         <v-row>
           <v-col>
