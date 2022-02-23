@@ -1,5 +1,10 @@
 # shopping-cart-vuejs
 
+# Mockup que fue entregado
+
+https://drive.google.com/file/d/1G-lmcXxvHm8Ys4Tae-R6PTlb-AyVqg6x/view?usp=sharing
+
+
 # Listado de productos
 ![image](https://user-images.githubusercontent.com/57992471/154589176-c4d71f6c-e552-4c55-b240-8087d6e276c7.png)
 
