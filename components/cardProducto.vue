@@ -1,16 +1,17 @@
 <template>
   <v-container>
-    <v-card style="border-radius: 20px" max-width="100%">
+    <v-card style="border-radius: 20px; overflow: hidden" max-width="100%">
       <v-card-text class="p-0" style="padding: 0px">
         <div class="image">
           <v-img
             :src="item.photo"
             :lazy-src="require('assets/img/jar-loading.gif')"
             :alt="item.name"
-            width="330px"
-            height="330px"
             style="border-radius: inherit"
             class="image"
+            contain
+            width="330px"
+            height="330px"
           />
           <div :class="stockClass">
             <span> {{ titleStock }} </span>
