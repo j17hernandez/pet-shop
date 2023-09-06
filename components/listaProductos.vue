@@ -1,15 +1,12 @@
 <template>
   <v-container>
     <LoadingComponent v-if="isLoading" />
-    <h2>
-      {{ category !== null && category !== undefined ? category.name : '' }}
-    </h2>
     <v-row v-if="getProductos.length !== 0 && getSearch.length === 0">
       <v-col
         v-for="item in getProductos"
         :key="item.name"
         cols="12"
-        sm="12"
+        sm="6"
         md="4"
         lg="4"
       >
@@ -57,21 +54,8 @@ export default {
     }
   },
   computed: {
-    category() {
-      return this.$store.getters.getCategory
-    },
     getProductos() {
-      let products = []
-      if (this.category !== null) {
-        if (this.category.name === 'Todos') {
-          products = this.products
-        } else {
-          products = this.products.filter(
-            (item) => item.category.name === this.category.name
-          )
-        }
-      }
-      return products
+      return this.products
     },
     // Función computada para obtener los resultados de la busqueda
     getSearch() {
@@ -94,10 +78,12 @@ export default {
   methods: {
     // Función que devuelve la lista de productos, desde la API
     getListProducts() {
-      this.$axios.get('product').then((resp) => {
-        this.products = resp.data
-        this.isLoading = false
-      })
+      this.$axios
+        .get('/api/480984b1-8abe-4b3e-b83f-edaac4d27fff')
+        .then((resp) => {
+          this.products = resp.data.data
+          this.isLoading = false
+        })
     },
   },
 }

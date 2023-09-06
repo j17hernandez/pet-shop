@@ -3,8 +3,8 @@ import colors from 'vuetify/es5/util/colors'
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - shopping-cart-vuejs',
-    title: 'shopping-cart-vuejs',
+    titleTemplate: '%s - colombia',
+    title: 'pet-shop',
     htmlAttrs: {
       lang: 'en',
     },
@@ -42,8 +42,14 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: 'http://sva.talana.com:8000/api/',
+    proxy: true,
+  },
+  proxy: {
+    '/api/': {
+      target: 'https://run.mocky.io/v3/',
+      pathRewrite: { '^/api/': '' },
+      changeOrigin: true,
+    },
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify

@@ -21,24 +21,6 @@
           ></v-img>
         </v-avatar>
       </nuxt-link>
-      <v-list>
-        <v-list-item-group>
-          <v-list-item
-            v-for="(item, i) in categories"
-            :key="i"
-            router
-            exact
-            @click="changeCategory(item)"
-          >
-            <v-list-item-action>
-              <v-icon>mdi-circle-medium</v-icon>
-            </v-list-item-action>
-            <v-list-item-content>
-              <v-list-item-title v-text="item.name" />
-            </v-list-item-content>
-          </v-list-item>
-        </v-list-item-group>
-      </v-list>
     </v-navigation-drawer>
     <v-app-bar :clipped-left="clipped" fixed app color="primary darken-2" dark>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
@@ -100,7 +82,6 @@ export default {
       drawer: true,
       fixed: false,
       search: '',
-      categories: [],
       miniVariant: false,
       right: true,
       rightDrawer: false,
@@ -120,23 +101,6 @@ export default {
         this.$store.commit('setSearch', v)
       },
       deep: true,
-    },
-  },
-  created() {
-    this.getCategories()
-  },
-  methods: {
-    // Función para obtener las categorías de productos
-    getCategories() {
-      this.$axios.get('product-category/').then((resp) => {
-        this.categories = resp.data
-        this.categories.unshift({ id: 10, name: 'Todos', order: 1 })
-        this.changeCategory(resp.data[0])
-      })
-    },
-    // Función para cambiar de categoría
-    changeCategory(item) {
-      this.$store.commit('setCategory', item)
     },
   },
 }

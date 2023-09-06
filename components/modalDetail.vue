@@ -30,10 +30,7 @@
             <h1>{{ item.name }}</h1>
           </v-col>
           <v-col>
-            <h2>Código: {{ item.code }}</h2></v-col
-          >
-          <v-col>
-            <h2>Precio: {{ formatter.format(item.price) }}</h2>
+            <h2>Precio: ${{ formatter.format(item.price) }}</h2>
           </v-col>
           <v-col md="6">
             Cantidad
@@ -48,7 +45,7 @@
             />
           </v-col>
           <v-col>
-            <h4>Subtotal: {{ formatter.format(item.price * cantidad) }}</h4>
+            <h4>Subtotal: ${{ formatter.format(item.price * cantidad) }}</h4>
           </v-col>
         </v-col>
       </v-row>
@@ -78,17 +75,18 @@ export default {
       default: () => {},
     },
   },
-  created() {
-    this.cantidad = this.item.cantidad
-  },
   data() {
     return {
       cantidad: 0,
-      formatter: new Intl.NumberFormat('en-US', {
+      formatter: new Intl.NumberFormat('es-ES', {
         style: 'currency',
-        currency: 'USD',
+        currency: 'COP',
+        minimumFractionDigits: 0,
       }),
     }
+  },
+  created() {
+    this.cantidad = this.item.cantidad
   },
   methods: {
     close() {

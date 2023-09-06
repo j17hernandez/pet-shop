@@ -35,7 +35,7 @@
             </v-tooltip>
           </v-col>
           <v-col>
-            <span> {{ formatter.format(item.price) }} </span>
+            <span> ${{ formatter.format(item.price) }} </span>
           </v-col>
         </v-row>
       </v-card-title>
@@ -100,9 +100,10 @@ export default {
   },
   data() {
     return {
-      formatter: new Intl.NumberFormat('en-US', {
+      formatter: new Intl.NumberFormat('es-ES', {
         style: 'currency',
-        currency: 'USD',
+        currency: 'COP',
+        minimumFractionDigits: 0,
       }),
       cantidad: 0,
       titleStock: '',

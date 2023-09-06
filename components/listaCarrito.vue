@@ -8,7 +8,7 @@
         <v-row>
           <v-col>
             <h5>{{ item.name }}</h5>
-            <span> {{ formatter.format(item.price) }} </span>
+            <span> ${{ formatter.format(item.price) }} </span>
           </v-col>
           <v-col cols="12" sm="12" md="4">
             <v-text-field
@@ -25,7 +25,7 @@
         </v-row>
       </v-col>
       <span v-if="getItems.length === 0"> No hay productos en el carrito </span>
-      <span v-else>Total: {{ formatter.format(getTotal) }}</span>
+      <span v-else>Total: ${{ formatter.format(getTotal) }}</span>
     </v-row>
   </v-container>
 </template>
@@ -36,9 +36,10 @@ export default {
   data() {
     return {
       cantidad: 0,
-      formatter: new Intl.NumberFormat('en-US', {
+      formatter: new Intl.NumberFormat('es-ES', {
         style: 'currency',
-        currency: 'USD',
+        currency: 'COP',
+        minimumFractionDigits: 0,
       }),
     }
   },
@@ -65,7 +66,7 @@ export default {
     },
     // Función para obtener el subtotal
     getSubtotal(subtotal) {
-      return this.formatter.format(subtotal)
+      return `$ ${this.formatter.format(subtotal)}`
     },
   },
 }
