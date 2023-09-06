@@ -1,8 +1,4 @@
-# pet-shop
-
-# Mockup que fue entregado
-
-https://drive.google.com/file/d/1G-lmcXxvHm8Ys4Tae-R6PTlb-AyVqg6x/view?usp=sharing
+# Pet-Shop
 
 # Listado de productos
 
