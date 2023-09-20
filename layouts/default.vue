@@ -58,11 +58,8 @@
     </v-main>
     <v-footer fixed app>
       <span
-        >By
-        <a href="https://github.com/j17hernandez" target="_blank">
-          j17hernandez</a
-        >
-        &copy; {{ new Date().getFullYear() }}</span
+        >By <a href="#">PetShop Team</a> &copy;
+        {{ new Date().getFullYear() }}</span
       >
     </v-footer>
   </v-app>

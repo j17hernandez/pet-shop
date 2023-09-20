@@ -13,3 +13,8 @@ export default {
   },
 }
 </script>
+<style>
+.product__rating .v-icon {
+  padding: 0px !important;
+}
+</style>

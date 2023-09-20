@@ -1,16 +1,8 @@
 # Pet-Shop
 
-# Listado de productos
+# Node Version
 
-![image](https://user-images.githubusercontent.com/57992471/154589176-c4d71f6c-e552-4c55-b240-8087d6e276c7.png)
-
-# Resumen de compra
-
-![image](https://user-images.githubusercontent.com/57992471/154589236-504273c8-bd2b-4065-b93c-2c4024841221.png)
-
-# Confirmacion de producto agregado al carrito
-
-![image](https://user-images.githubusercontent.com/57992471/154589341-6e88c418-fa7d-45e3-ba52-5e62cefc38d7.png)
+v16.14.2
 
 ## Build Setup
 

@@ -1,47 +1,54 @@
 <template>
   <v-container>
-    <v-card style="border-radius: 20px; overflow: hidden" max-width="100%">
+    <v-card style="border-radius: 20px; overflow: hidden" width="266">
       <v-card-text class="p-0" style="padding: 0px">
-        <div class="image">
+        <div class="product__image">
           <v-img
             :src="item.photo"
             :lazy-src="require('assets/img/jar-loading.gif')"
             :alt="item.name"
-            style="border-radius: inherit"
-            class="image"
             contain
-            width="330px"
-            height="330px"
+            width="126px"
+            height="151px"
           />
-          <div :class="stockClass">
-            <span> {{ titleStock }} </span>
-          </div>
         </div>
+        <!-- <div :class="stockClass">
+          <span> {{ titleStock }} </span>
+        </div> -->
       </v-card-text>
-      <v-card-title class="d-flex justify-center">
+      <v-card-title class="d-flex justify-center card__product__title">
         <v-row no-gutters class="text-left">
           <v-col cols="12" md="12">
             <v-tooltip bottom>
               <template #activator="{ attrs, on }">
-                <span v-bind="attrs" v-on="on">
-                  {{
-                    item.name.length > 22
-                      ? item.name.substr(0, 22).concat('...')
-                      : item.name
-                  }}
+                <span class="product__name" v-bind="attrs" v-on="on">
+                  {{ item.name }}
                 </span>
               </template>
               {{ item.name }}
             </v-tooltip>
           </v-col>
-          <v-col>
-            <span> ${{ formatter.format(item.price) }} </span>
+          <v-col class="product__rating-price">
+            <v-rating
+              class="product__rating"
+              empty-icon="mdi-star-outline"
+              full-icon="mdi-star"
+              half-icon="mdi-star-half-full"
+              hover
+              small
+              length="5"
+              size="15"
+              value="3"
+            ></v-rating>
+            <span class="product__price">
+              ${{ formatter.format(item.price) }}
+            </span>
           </v-col>
         </v-row>
       </v-card-title>
-      <v-card-actions>
+      <v-card-actions class="product__actions">
         <v-row no-gutters>
-          <v-col cols="12" sm="12" md="4">
+          <v-col cols="12" sm="12" md="6">
             <v-text-field
               v-model="cantidad"
               outlined
@@ -52,14 +59,14 @@
               @click:append-outer="cantidad++"
             />
           </v-col>
-          <v-col>
+          <v-col cols="12" sm="12" md="6">
             <v-btn
               block
               color="primary darken-3"
               :disabled="validationAddcart"
               @click="openModalDetail(item)"
             >
-              <v-icon>mdi-cart-plus</v-icon>
+              Comprar
             </v-btn>
           </v-col>
         </v-row>
@@ -157,7 +164,9 @@ export default {
   },
 }
 </script>
-<style scoped>
+
+<style lang="scss" scoped>
+$rating-padding: 0;
 .text-stock {
   padding: 5px;
   padding-left: 5%;
@@ -178,5 +187,38 @@ export default {
 }
 .color-stock {
   background-color: #00479b;
+}
+
+.product__image {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+.card__product__title {
+  padding: 0px 20px 0px 20px;
+}
+.product__name {
+  font-size: 16px;
+  word-break: break-word;
+}
+.product__rating-price {
+  display: flex;
+  justify-content: space-between;
+}
+.product__rating {
+  width: 50%;
+  display: flex;
+  gap: 5px;
+}
+
+.product__rating .v-icon {
+  padding: 0px !important;
+}
+.product__price {
+  font-size: 16px;
+}
+.product__actions {
+  padding: 0px 20px 0px 20px !important;
 }
 </style>
