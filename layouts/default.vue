@@ -1,27 +1,41 @@
 <template>
   <v-app dark>
-    <v-navigation-drawer
-      v-model="drawer"
-      :mini-variant="miniVariant"
-      :clipped="clipped"
-      fixed
-      app
-      width="200"
-    >
-      <nuxt-link to="/">
-        <v-avatar height="200" class="mt-3" width="200" min-width="200">
-          <v-img
-            :src="require('assets/img/logo.png')"
-            height="200"
-            width="200"
-            class="text-center"
-            style="background-size: contain"
-            contain
-            alt="logo"
-          ></v-img>
-        </v-avatar>
-      </nuxt-link>
-    </v-navigation-drawer>
+        <v-navigation-drawer 
+          v-model="drawer"
+          :mini-variant="miniVariant"
+          :clipped="clipped"
+          fixed
+          app
+          color="primary darken-2"
+          width="200"    
+        >
+          <nuxt-link to="/">
+              <v-avatar height="64" min-width="150" rounded="0" >
+                  <v-img
+                    :src="require('assets/img/logo.png')"
+                    height="40"
+                    width="40"
+                    class="ml-10"
+                    style="background-color: white;"
+                    contain
+                    alt="logo"
+                  ></v-img>
+              </v-avatar>
+            </nuxt-link>
+
+        <v-divider></v-divider>
+
+            <v-list color="transparent">
+              <v-list-item prepend-icon="mdi-view-dashboard" title="Dashboard"></v-list-item>
+              <v-list-item prepend-icon="mdi-account-box" title="Account"></v-list-item>
+              <v-list-item prepend-icon="mdi-gavel" title="Admin"></v-list-item>
+            </v-list>
+
+        </v-navigation-drawer>
+        
+
+
+
     <v-app-bar :clipped-left="clipped" fixed app color="primary darken-2" dark>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title v-text="title" />
@@ -56,7 +70,7 @@
         <Nuxt />
       </v-container>
     </v-main>
-    <v-footer fixed app>
+    <v-footer fixed app >
       <span
         >By <a href="#">PetShop Team</a> &copy;
         {{ new Date().getFullYear() }}</span

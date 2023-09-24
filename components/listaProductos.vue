@@ -1,6 +1,11 @@
 <template>
   <v-container>
     <LoadingComponent v-if="isLoading" />
+      <v-breadcrumbs :items="items">
+        <template v-slot:prepend>
+          <v-icon icon="md:home"></v-icon>
+        </template>
+      </v-breadcrumbs>
     <v-row v-if="getProductos.length !== 0 && getSearch.length === 0">
       <v-col
         v-for="item in getProductos"
@@ -51,6 +56,18 @@ export default {
     return {
       products: [],
       isLoading: false,
+      items:[
+        {
+          text : 'Home',
+          disabled: true,
+          href: '#'
+        },
+        {
+          text : 'Productos veterinarios',
+          disabled: false,
+          href: '#'
+        }
+      ]
     }
   },
   computed: {

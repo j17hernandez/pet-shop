@@ -1,11 +1,22 @@
 <template>
-  <v-container>
+  <v-container >
     <v-row class="text-left">
-      <v-col cols="12">
-        <h2>Resumen de compra</h2>
+      <v-col cols="12" class="BuyCaTtitle">
+        <h2 style="color: white;">Resumen de compra</h2>
       </v-col>
       <v-col v-for="(item, i) in getItems" :key="i" cols="12">
         <v-row>
+            <v-col>
+              <v-img
+                :src="item.photo"
+                :lazy-src="require('assets/img/jar-loading.gif')"
+                :alt="item.name"
+                width="50px"
+                height="50px"
+                style="border-radius: 10px; margin-top: 10px;"
+                class="image"
+              />
+          </v-col>
           <v-col>
             <h5>{{ item.name }}</h5>
             <span> ${{ formatter.format(item.price) }} </span>
@@ -24,7 +35,7 @@
           <v-col> Sub-total: {{ getSubtotal(item.subtotal) }} </v-col>
         </v-row>
       </v-col>
-      <span v-if="getItems.length === 0"> No hay productos en el carrito </span>
+      <span v-if="getItems.length === 0" class="mt-2"> No hay productos en el carrito </span>
       <span v-else>Total: ${{ formatter.format(getTotal) }}</span>
     </v-row>
   </v-container>
@@ -71,3 +82,20 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+
+.BuyCaTtitle{
+  background-color: #00489c;
+}
+
+.v-card__text{
+  background-color: #00489c;
+  border-radius: 20px 20px 0px 0px;
+}
+
+.FooterCar{
+  border-radius: 0px 0px 20px 20px;
+}
+
+</style>
