@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <LoadingComponent v-if="isLoading" />
-    <v-breadcrumbs :items="items" />
+    <v-breadcrumbs v-if="!isLoading" :items="items" />
     <v-row>
       <v-col
         v-for="item in getFilterProducts"
@@ -16,12 +16,16 @@
     </v-row>
     <v-col
       v-if="getFilterProducts.length == 0"
-      class="mt-1"
+      class="d-flex justify-center"
       cols="12"
       sm="12"
       md="12"
     >
-      <v-img :src="require('assets/img/emptyList.png')"></v-img>
+      <v-img
+        max-height="600px"
+        :src="require('assets/img/emptyList.png')"
+        max-width="600px"
+      />
     </v-col>
   </v-container>
 </template>
@@ -61,7 +65,9 @@ export default {
         this.$store.state.search.length > 0
       ) {
         products = this.products.filter((item) =>
-          item.name.toLowerCase().includes(this.$store.state.search)
+          item.name
+            .toLowerCase()
+            .includes(this.$store.state.search.toLowerCase())
         )
       } else {
         products = this.products
