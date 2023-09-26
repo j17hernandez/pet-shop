@@ -1,6 +1,9 @@
 <template>
   <v-container>
-    <v-card style="border-radius: 20px; overflow: hidden" width="266">
+    <v-card
+      class="d-flex align-center flex-column"
+      style="border-radius: 20px; box-sizing: border-box"
+    >
       <v-card-text class="p-0" style="padding: 0px">
         <div class="product__image">
           <v-img
@@ -16,19 +19,19 @@
           <span> {{ titleStock }} </span>
         </div> -->
       </v-card-text>
-      <v-card-title class="d-flex justify-center card__product__title">
+      <v-card-title class="d-flex card__product__title">
         <v-row no-gutters class="text-left">
           <v-col cols="12" md="12">
             <v-tooltip bottom>
-              <template #activator="{ attrs, on }">
-                <span class="product__name" v-bind="attrs" v-on="on">
+              <template #activator="{ on }">
+                <span class="product__name" v-on="on">
                   {{ item.name }}
                 </span>
               </template>
               {{ item.name }}
             </v-tooltip>
           </v-col>
-          <v-col class="product__rating-price">
+          <v-col class="product__rating-price mt-5">
             <v-rating
               class="product__rating"
               empty-icon="mdi-star-outline"
@@ -38,7 +41,7 @@
               small
               length="5"
               size="15"
-              value="3"
+              :value="5"
             ></v-rating>
             <span class="product__price">
               ${{ formatter.format(item.price) }}
@@ -46,7 +49,7 @@
           </v-col>
         </v-row>
       </v-card-title>
-      <v-card-actions class="product__actions">
+      <v-card-actions class="product__actions mt-5">
         <v-row no-gutters>
           <v-col cols="12" sm="12" md="6">
             <v-text-field
@@ -154,7 +157,7 @@ export default {
     },
     openModalDetail(item) {
       const i = { ...item, cantidad: this.cantidad }
-      this.addCart(i)
+      // this.addCart(i)
       this.itemSelected = i
       this.modalDetail = true
     },
@@ -197,6 +200,8 @@ $rating-padding: 0;
 }
 .card__product__title {
   padding: 0px 20px 0px 20px;
+  letter-spacing: 0.5px;
+  line-height: 1rem;
 }
 .product__name {
   font-size: 16px;
@@ -219,6 +224,6 @@ $rating-padding: 0;
   font-size: 16px;
 }
 .product__actions {
-  padding: 0px 20px 0px 20px !important;
+  padding: 0px 20px 2px 20px !important;
 }
 </style>

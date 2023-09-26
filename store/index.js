@@ -24,9 +24,11 @@ export const mutations = {
   updateCartMinus(state, item) {
     const i = state.itemsCart.indexOf(item)
     const el = state.itemsCart[i]
-    el.cantidad--
-    const sub = el.cantidad * el.price
-    el.subtotal = sub
+    if (el.cantidad > 1) {
+      el.cantidad--
+      const sub = el.cantidad * el.price
+      el.subtotal = sub
+    }
   },
   getTotalCart(state) {
     let total = 0

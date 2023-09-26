@@ -6,22 +6,45 @@
       :clipped="clipped"
       fixed
       app
+      color="primary darken-2"
       width="200"
+      dark
     >
       <nuxt-link to="/">
-        <v-avatar height="200" class="mt-3" width="200" min-width="200">
+        <v-avatar height="160" min-width="150" rounded="0">
           <v-img
             :src="require('assets/img/logo.png')"
-            height="200"
-            width="200"
-            class="text-center"
-            style="background-size: contain"
+            height="160"
+            width="160"
+            class="ml-6"
+            style="background-color: transparent"
             contain
             alt="logo"
           ></v-img>
         </v-avatar>
       </nuxt-link>
+
+      <v-divider></v-divider>
+
+      <v-list nav>
+        <v-list-item-group v-model="groupSelected">
+          <v-list-item
+            v-for="item in menu"
+            :key="item.id"
+            @click="$router.push(item.path)"
+          >
+            <v-list-item-icon>
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-list-item-icon>
+
+            <v-list-item-content>
+              <v-list-item-title>{{ item.title }}</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
     </v-navigation-drawer>
+
     <v-app-bar :clipped-left="clipped" fixed app color="primary darken-2" dark>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title v-text="title" />
@@ -83,6 +106,27 @@ export default {
       right: true,
       rightDrawer: false,
       title: 'Pet Shop',
+      groupSelected: 0,
+      menu: [
+        {
+          id: 1,
+          title: 'Home',
+          icon: 'mdi-view-dashboard',
+          path: '/',
+        },
+        {
+          id: 2,
+          title: 'Settings',
+          icon: 'mdi-cog',
+          path: '/settings',
+        },
+        {
+          id: 3,
+          title: 'Admin',
+          icon: 'mdi-shield-account',
+          path: '/admin',
+        },
+      ],
     }
   },
   computed: {

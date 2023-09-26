@@ -1,9 +1,10 @@
 <template>
   <v-container>
     <LoadingComponent v-if="isLoading" />
-    <v-row v-if="getProductos.length !== 0 && getSearch.length === 0">
+    <v-breadcrumbs :items="items" />
+    <v-row>
       <v-col
-        v-for="item in getProductos"
+        v-for="item in getFilterProducts"
         :key="item.name"
         cols="12"
         sm="6"
@@ -13,22 +14,8 @@
         <CardComponent :item="item" />
       </v-col>
     </v-row>
-    <v-row>
-      <v-col
-        v-for="(el, ind) in getSearch"
-        :key="ind"
-        cols="12"
-        sm="12"
-        md="4"
-        lg="4"
-      >
-        <div v-if="getSearch.length > 0">
-          <CardComponent :item="el" />
-        </div>
-      </v-col>
-    </v-row>
     <v-col
-      v-if="getProductos.length == 0"
+      v-if="getFilterProducts.length == 0"
       class="mt-1"
       cols="12"
       sm="12"
@@ -51,14 +38,23 @@ export default {
     return {
       products: [],
       isLoading: false,
+      items: [
+        {
+          text: 'Home',
+          disabled: true,
+          href: '#',
+        },
+        {
+          text: 'Productos veterinarios',
+          disabled: false,
+          href: '#',
+        },
+      ],
     }
   },
   computed: {
-    getProductos() {
-      return this.products
-    },
     // Función computada para obtener los resultados de la busqueda
-    getSearch() {
+    getFilterProducts() {
       let products = []
       if (
         this.$store.state.search !== null &&
@@ -67,7 +63,10 @@ export default {
         products = this.products.filter((item) =>
           item.name.toLowerCase().includes(this.$store.state.search)
         )
+      } else {
+        products = this.products
       }
+
       return products
     },
   },
