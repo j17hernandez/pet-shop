@@ -59,7 +59,7 @@
           clearable
         />
       </div>
-      <v-menu offset-y>
+      <v-menu offset-y :close-on-content-click="false">
         <template #activator="{ on, attrs }">
           <v-badge class="mr-4" color="green" :content="getCountCart">
             <v-btn icon small v-bind="attrs" v-on="on">
@@ -67,7 +67,7 @@
             </v-btn>
           </v-badge>
         </template>
-        <v-card width="500px">
+        <v-card width="600px">
           <v-card-text>
             <ListCart />
           </v-card-text>

@@ -4,7 +4,7 @@
     <v-breadcrumbs v-if="!isLoading" :items="items" />
     <v-row>
       <v-col
-        v-for="item in getFilterProducts"
+        v-for="item in itemsPerPages"
         :key="item.name"
         cols="12"
         sm="6"
@@ -15,7 +15,7 @@
       </v-col>
     </v-row>
     <v-col
-      v-if="getFilterProducts.length == 0"
+      v-if="itemsPerPages.length == 0"
       class="d-flex justify-center"
       cols="12"
       sm="12"
@@ -26,6 +26,9 @@
         :src="require('assets/img/emptyList.png')"
         max-width="600px"
       />
+    </v-col>
+    <v-col v-if="itemsPerPages.length !== 0" class="mt-5">
+      <v-pagination v-model="currentPage" :length="totalPages" />
     </v-col>
   </v-container>
 </template>
@@ -54,6 +57,8 @@ export default {
           href: '#',
         },
       ],
+      itemsPerPage: 5,
+      currentPage: 1,
     }
   },
   computed: {
@@ -74,6 +79,14 @@ export default {
       }
 
       return products
+    },
+    totalPages() {
+      return Math.ceil(this.getFilterProducts.length / this.itemsPerPage)
+    },
+    itemsPerPages() {
+      const start = (this.currentPage - 1) * this.itemsPerPage
+      const end = start + this.itemsPerPage
+      return this.getFilterProducts.slice(start, end)
     },
   },
   created() {

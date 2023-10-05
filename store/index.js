@@ -30,6 +30,10 @@ export const mutations = {
       el.subtotal = sub
     }
   },
+  deleteItemCart(state, item) {
+    const index = state.itemsCart.indexOf(item)
+    state.itemsCart.splice(index, 1)
+  },
   getTotalCart(state) {
     let total = 0
     state.itemsCart.forEach((item) => {
@@ -60,6 +64,11 @@ export const actions = {
   },
   updateCountMinus({ commit }, item) {
     commit('updateCartMinus', item)
+    commit('getTotalCart')
+  },
+  deleteItem({ commit, state }, item) {
+    commit('deleteItemCart', item)
+    commit('setCountCart', state.itemsCart.length)
     commit('getTotalCart')
   },
 }

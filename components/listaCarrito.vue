@@ -1,11 +1,12 @@
 <template>
-  <v-container >
+  <v-container>
     <v-row class="text-left">
       <v-col cols="12" class="BuyCaTtitle">
-        <h2 style="color: white;">Resumen de compra</h2>
+        <h2 style="color: white">Resumen de compra</h2>
       </v-col>
-      <v-col v-for="(item, i) in getItems" :key="i" cols="12">
-        <v-row>
+      <v-container class="cart_list">
+        <v-col v-for="(item, i) in getItems" :key="i" cols="12">
+          <v-row>
             <v-col>
               <v-img
                 :src="item.photo"
@@ -13,29 +14,37 @@
                 :alt="item.name"
                 width="50px"
                 height="50px"
-                style="border-radius: 10px; margin-top: 10px;"
+                style="border-radius: 10px; margin-top: 10px"
                 class="image"
               />
-          </v-col>
-          <v-col>
-            <h5>{{ item.name }}</h5>
-            <span> ${{ formatter.format(item.price) }} </span>
-          </v-col>
-          <v-col cols="12" sm="12" md="4">
-            <v-text-field
-              v-model="item.cantidad"
-              outlined
-              dense
-              append-outer-icon="mdi-plus"
-              prepend-icon="mdi-minus"
-              @click:prepend="updateCartMinus(item)"
-              @click:append-outer="updateCart(item)"
-            />
-          </v-col>
-          <v-col> Sub-total: {{ getSubtotal(item.subtotal) }} </v-col>
-        </v-row>
-      </v-col>
-      <span v-if="getItems.length === 0" class="mt-2"> No hay productos en el carrito </span>
+            </v-col>
+            <v-col>
+              <h5>{{ item.name }}</h5>
+              <span> ${{ formatter.format(item.price) }} </span>
+            </v-col>
+            <v-col cols="12" sm="12" md="4">
+              <v-text-field
+                v-model="item.cantidad"
+                outlined
+                dense
+                append-outer-icon="mdi-plus"
+                prepend-icon="mdi-minus"
+                @click:prepend="updateCartMinus(item)"
+                @click:append-outer="updateCart(item)"
+              />
+            </v-col>
+            <v-col> Sub-total: {{ getSubtotal(item.subtotal) }} </v-col>
+            <v-col class="text-center">
+              <v-btn icon @click="deleteItemCart(item)">
+                <v-icon>mdi-delete</v-icon>
+              </v-btn>
+            </v-col>
+          </v-row>
+        </v-col>
+      </v-container>
+      <span v-if="getItems.length === 0" class="mt-2">
+        No hay productos en el carrito
+      </span>
       <span v-else>Total: ${{ formatter.format(getTotal) }}</span>
     </v-row>
   </v-container>
@@ -66,7 +75,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['updateCount', 'updateCountMinus']),
+    ...mapActions(['updateCount', 'updateCountMinus', 'deleteItem']),
     // Función para aumentar la cantidad por producto
     updateCart(item) {
       return this.updateCount(item)
@@ -74,6 +83,9 @@ export default {
     // Función para disminuir la cantidad por producto
     updateCartMinus(item) {
       return this.updateCountMinus(item)
+    },
+    deleteItemCart(item) {
+      return this.deleteItem(item)
     },
     // Función para obtener el subtotal
     getSubtotal(subtotal) {
@@ -84,18 +96,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-.BuyCaTtitle{
+.BuyCaTtitle {
   background-color: #00489c;
 }
 
-.v-card__text{
+.v-card__text {
   background-color: #00489c;
   border-radius: 20px 20px 0px 0px;
 }
 
-.FooterCar{
+.cart_list {
+  max-height: 400px;
+  overflow: auto;
+}
+.FooterCar {
   border-radius: 0px 0px 20px 20px;
 }
-
 </style>
