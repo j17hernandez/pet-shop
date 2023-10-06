@@ -160,6 +160,7 @@ export default {
       // this.addCart(i)
       this.itemSelected = i
       this.modalDetail = true
+      this.cantidad = 0
     },
     closeModal() {
       this.modalDetail = false

@@ -59,7 +59,11 @@
           clearable
         />
       </div>
-      <v-menu offset-y :close-on-content-click="false">
+      <v-menu
+        offset-y
+        :close-on-content-click="false"
+        content-class="menu_cart"
+      >
         <template #activator="{ on, attrs }">
           <v-badge class="mr-4" color="green" :content="getCountCart">
             <v-btn icon small v-bind="attrs" v-on="on">
@@ -67,11 +71,8 @@
             </v-btn>
           </v-badge>
         </template>
-        <v-card width="600px">
-          <v-card-text>
-            <ListCart />
-          </v-card-text>
-        </v-card>
+
+        <ListCart show-pay-button />
       </v-menu>
     </v-app-bar>
     <v-main>
@@ -146,3 +147,8 @@ export default {
   },
 }
 </script>
+<style scoped>
+.menu_cart {
+  border-radius: 30px 0px 30px 30px;
+}
+</style>
