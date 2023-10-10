@@ -1,53 +1,42 @@
 <template>
   <v-app dark>
-    <v-navigation-drawer
-      v-model="drawer"
-      :mini-variant="miniVariant"
-      :clipped="clipped"
-      fixed
-      app
-      color="primary darken-2"
-      width="200"
-      dark
-    >
+    <v-overlay v-model="overlay"></v-overlay>
+    <v-app-bar :clipped-left="clipped" fixed app color="primary darken-2" dark>
       <nuxt-link to="/">
-        <v-avatar height="160" min-width="150" rounded="0">
+        <v-avatar height="110" min-width="110" rounded="0">
           <v-img
             :src="require('assets/img/logo.png')"
-            height="160"
-            width="160"
-            class="ml-6"
+            height="70"
+            width="70"
             style="background-color: transparent"
             contain
             alt="logo"
           ></v-img>
         </v-avatar>
       </nuxt-link>
-
-      <v-divider></v-divider>
-
-      <v-list nav>
-        <v-list-item-group v-model="groupSelected">
-          <v-list-item
+      <v-spacer />
+      <v-card class="tabsCards" style="background-color: transparent;">
+        <v-tabs v-model="groupSelected" align-tabs="center">
+          <v-tab 
             v-for="item in menu"
             :key="item.id"
+            class="Tabs"
             @click="$router.push(item.path)"
           >
-            <v-list-item-icon>
+            <v-list-item-icon class="mt-3">
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-item-icon>
 
             <v-list-item-content>
               <v-list-item-title>{{ item.title }}</v-list-item-title>
             </v-list-item-content>
-          </v-list-item>
-        </v-list-item-group>
-      </v-list>
-    </v-navigation-drawer>
-
-    <v-app-bar :clipped-left="clipped" fixed app color="primary darken-2" dark>
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-toolbar-title v-text="title" />
+          </v-tab>
+        </v-tabs>
+        <v-window v-model="tab">
+          <v-window-item v-for="n in 4" :key="n" value="n">      
+          </v-window-item>
+        </v-window>
+      </v-card>
       <v-spacer />
       <div class="mt-6 mr-4">
         <v-text-field
@@ -65,39 +54,44 @@
         content-class="menu_cart"
       >
         <template #activator="{ on, attrs }">
-          <v-badge class="mr-4" color="green" :content="getCountCart">
-            <v-btn icon small v-bind="attrs" v-on="on">
-              <v-icon>mdi-cart</v-icon>
+            <v-btn icon small v-bind="attrs" v-on="on" @click="overlay = !overlay">
+              <v-icon>mdi-account</v-icon>
             </v-btn>
-          </v-badge>
+            <v-dialog
+            v-model="dialog"
+            persistent
+            width="1024"
+        >
+        </v-dialog>  
         </template>
-        <ListCart show-pay-button />
-      </v-menu>
+        <LoginPage show-save-button/>      
+      </v-menu>      
     </v-app-bar>
     <v-main>
-      <v-container>
-        <Nuxt />
+      <v-container >
+        <ListaProductosHome/>
       </v-container>
     </v-main>
-    <v-footer fixed app>
+    <v-footer fixed app class="text-center">
       <span
         >By <a href="#">PetShop Team</a> &copy;
         {{ new Date().getFullYear() }}</span
       >
-      <span> |
-        <router-link to="/home_page">Inicio</router-link>
-       </span>
     </v-footer>
   </v-app>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import ListCart from '@/components/listaCarrito.vue'
+import LoginPage from '@/components/loginUser.vue'
+import ListaProductosHome from '@/components/listaProductosHome.vue'
+// import listaServicios from '@/components/listaServicios.vue'
 export default {
-  name: 'DefaultLayout',
+  name: 'HomePage',
   components: {
-    ListCart,
+    LoginPage,
+    ListaProductosHome,
+    // listaServicios,
   },
   data() {
     return {
@@ -110,25 +104,28 @@ export default {
       rightDrawer: false,
       title: 'Pet Shop',
       groupSelected: 0,
+      tab: null,
+      overlay: false,
+      dialog: false,
       menu: [
-        {
+      {
           id: 1,
-          title: 'Home',
+          title: 'Mascotas',
           icon: 'mdi-view-dashboard',
-          path: '/',
+          path: '/petsPage',
         },
         {
           id: 2,
-          title: 'Settings',
+          title: 'Marcas',
           icon: 'mdi-cog',
-          path: '/settings',
+          path: '/marcas_page',
         },
         {
           id: 3,
-          title: 'Admin',
+          title: 'Servicios',
           icon: 'mdi-shield-account',
-          path: '/admin',
-        },
+          path: '/servicios_page',
+        },       
       ],
     }
   },
@@ -149,8 +146,16 @@ export default {
   },
 }
 </script>
-<style scoped>
-.menu_cart {
-  border-radius: 30px 0px 30px 30px;
+
+<style>
+
+.theme--dark.v-tabs, .theme--dark.v-tabs > .v-tabs-bar {
+  font-family: 'Poppins', sans-serif;
+  background-color: transparent;
 }
+
+.v-tab{
+  text-transform: uppercase;
+} 
+
 </style>

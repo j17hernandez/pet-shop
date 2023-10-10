@@ -4,7 +4,7 @@ export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     titleTemplate: '%s - colombia',
-    title: 'pet-shop',
+    title: 'Pet-Shop',
     htmlAttrs: {
       lang: 'en',
     },
