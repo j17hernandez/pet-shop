@@ -53,18 +53,15 @@
         :close-on-content-click="false"
         content-class="menu_cart"
       >
-        <template #activator="{ on, attrs }">
-            <v-btn icon small v-bind="attrs" v-on="on" @click="overlay = !overlay">
-              <v-icon>mdi-account</v-icon>
-            </v-btn>
-            <v-dialog
-            v-model="dialog"
-            persistent
-            width="1024"
-        >
-        </v-dialog>  
-        </template>
-        <LoginPage show-save-button/>      
+      <template #activator="{ on, attrs }">
+        <v-badge class="mr-4" color="green" :content="getCountCart">
+          <v-btn icon small v-bind="attrs" v-on="on">
+            <v-icon>mdi-cart</v-icon>
+          </v-btn>
+        </v-badge>
+      </template>
+
+      <ListCart show-pay-button :close="close" />
       </v-menu>      
     </v-app-bar>
     <v-main>
@@ -83,15 +80,13 @@
 
 <script>
 import { mapState } from 'vuex'
-import LoginPage from '@/components/loginUser.vue'
 import ListaProductosHome from '@/components/listaProductosHome.vue'
-// import listaServicios from '@/components/listaServicios.vue'
+import ListCart from '@/components/listaCarrito.vue'
 export default {
   name: 'HomePage',
   components: {
-    LoginPage,
     ListaProductosHome,
-    // listaServicios,
+    ListCart,
   },
   data() {
     return {

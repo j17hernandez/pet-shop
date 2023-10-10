@@ -1,6 +1,5 @@
 <template>
     <content>
-
         <v-carousel
         cycle
         height="600"
@@ -8,9 +7,7 @@
         :show-arrows="false"
         >
         <v-carousel-item
-            v-for="(slide, i) in slides"
-            :key="i"
-            :src="require('assets/img/PRuebas.png')"
+            :src="require('assets/img/Pruebas.png')"
         >
         </v-carousel-item>
         </v-carousel>
@@ -25,7 +22,6 @@
 
   <script>
   import ListaProductos from '@/components/listaProductos.vue'
-//   import slideSevices from "./slideSevices.vue"
     export default {
     
      components:{
