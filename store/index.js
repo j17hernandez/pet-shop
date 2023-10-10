@@ -3,6 +3,9 @@ export const state = () => ({
   itemsCart: [],
   total: 0,
   search: null,
+  personalData: {},
+  shippingAddressData: {},
+  paymentGatewayData: {},
 })
 
 export const mutations = {
@@ -44,6 +47,18 @@ export const mutations = {
   setSearch(state, data) {
     state.search = data
   },
+  updatePersonalDataField(state, data) {
+    state.personalData = data
+  },
+  updateShippingAddressData(state, data) {
+    state.shippingAddressData = data
+  },
+  updatePaymentGatewayData(state, data) {
+    state.paymentGatewayData = data
+  },
+  cleanCart(state) {
+    state.itemsCart = []
+  },
 }
 
 export const getters = {
@@ -70,5 +85,21 @@ export const actions = {
     commit('deleteItemCart', item)
     commit('setCountCart', state.itemsCart.length)
     commit('getTotalCart')
+  },
+  updatePersonalData({ commit }, data) {
+    commit('updatePersonalDataField', data)
+  },
+  updateShippingAddress({ commit }, data) {
+    commit('updateShippingAddressData', data)
+  },
+  updatePaymentGateway({ commit }, data) {
+    commit('updatePaymentGatewayData', data)
+  },
+  cleanAllData({ commit, state }, data) {
+    commit('cleanCart')
+    commit('setCountCart', state.itemsCart.length)
+    commit('updatePersonalDataField', data)
+    commit('updateShippingAddressData', data)
+    commit('updatePaymentGatewayData', data)
   },
 }

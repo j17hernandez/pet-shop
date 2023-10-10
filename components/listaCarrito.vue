@@ -31,8 +31,9 @@
                     v-model="item.cantidad"
                     outlined
                     dense
-                    append-outer-icon="mdi-plus"
-                    prepend-icon="mdi-minus"
+                    :append-outer-icon="showPayButton ? 'mdi-plus' : ''"
+                    :prepend-icon="showPayButton ? 'mdi-minus' : ''"
+                    :disabled="!showPayButton"
                     @click:prepend="updateCartMinus(item)"
                     @click:append-outer="updateCart(item)"
                   />
@@ -53,7 +54,7 @@
           </span>
           <span v-else>Total: ${{ formatter.format(getTotal) }}</span>
         </v-row>
-        <v-row v-if="showPayButton">
+        <v-row v-if="showPayButton && getItems.length > 0">
           <v-col justify-center class="text-center">
             <v-btn color="primary" @click="sendPay"> Proceder al pago </v-btn>
           </v-col>
@@ -70,6 +71,10 @@ export default {
     showPayButton: {
       type: Boolean,
       default: false,
+    },
+    close: {
+      type: Function,
+      default: () => {},
     },
   },
   data() {
@@ -111,6 +116,7 @@ export default {
       return `$ ${this.formatter.format(subtotal)}`
     },
     sendPay() {
+      this.close()
       this.$router.push('/payment_gateway')
     },
   },
