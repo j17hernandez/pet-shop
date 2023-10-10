@@ -52,7 +52,7 @@
       <div class="mt-6 mr-4">
         <v-text-field
           v-model="search"
-          label="Search"
+          label="Buscar..."
           dense
           outlined
           prepend-inner-icon="mdi-magnify"
@@ -60,6 +60,7 @@
         />
       </div>
       <v-menu
+        v-model="isOpenCartList"
         offset-y
         :close-on-content-click="false"
         content-class="menu_cart"
@@ -72,7 +73,7 @@
           </v-badge>
         </template>
 
-        <ListCart show-pay-button />
+        <ListCart show-pay-button :close="close" />
       </v-menu>
     </v-app-bar>
     <v-main>
@@ -111,23 +112,18 @@ export default {
       menu: [
         {
           id: 1,
-          title: 'Home',
+          title: 'Inicio',
           icon: 'mdi-view-dashboard',
           path: '/',
         },
         {
           id: 2,
-          title: 'Settings',
+          title: 'Ajustes',
           icon: 'mdi-cog',
-          path: '/settings',
-        },
-        {
-          id: 3,
-          title: 'Admin',
-          icon: 'mdi-shield-account',
-          path: '/admin',
+          path: '/',
         },
       ],
+      isOpenCartList: false,
     }
   },
   computed: {
@@ -143,6 +139,11 @@ export default {
         this.$store.commit('setSearch', v)
       },
       deep: true,
+    },
+  },
+  methods: {
+    close() {
+      this.isOpenCartList = false
     },
   },
 }
