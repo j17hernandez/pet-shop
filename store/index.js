@@ -6,6 +6,7 @@ export const state = () => ({
   personalData: {},
   shippingAddressData: {},
   paymentGatewayData: {},
+  isLogged: false,
 })
 
 export const mutations = {
@@ -59,6 +60,9 @@ export const mutations = {
   cleanCart(state) {
     state.itemsCart = []
   },
+  updateStatusLoged(state, value) {
+    state.isLogged = value
+  },
 }
 
 export const getters = {
@@ -101,5 +105,8 @@ export const actions = {
     commit('updatePersonalDataField', data)
     commit('updateShippingAddressData', data)
     commit('updatePaymentGatewayData', data)
+  },
+  changeStatusLoged({ commit }, value) {
+    commit('updateStatusLoged', value)
   },
 }
