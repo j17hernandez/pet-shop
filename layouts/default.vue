@@ -31,7 +31,7 @@
           <v-list-item
             v-for="item in menu"
             :key="item.id"
-            @click="$router.push(item.path)"
+            @click="item.path !== '' ? $router.push(item.path) : item.click()"
           >
             <v-list-item-icon>
               <v-icon>{{ item.icon }}</v-icon>
@@ -91,7 +91,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import ListCart from '@/components/listaCarrito.vue'
 export default {
   name: 'DefaultLayout',
@@ -118,9 +118,13 @@ export default {
         },
         {
           id: 2,
-          title: 'Ajustes',
-          icon: 'mdi-cog',
-          path: '/',
+          title: 'Cerrar Sesión',
+          icon: 'mdi-logout',
+          path: '',
+          click: () => {
+            this.changeStatusLoged(false)
+            this.$router.push('/login')
+          },
         },
       ],
       isOpenCartList: false,
@@ -142,6 +146,7 @@ export default {
     },
   },
   methods: {
+    ...mapActions(['changeStatusLoged']),
     close() {
       this.isOpenCartList = false
     },
